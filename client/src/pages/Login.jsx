@@ -12,14 +12,20 @@ import {
   IconButton,
 } from "@mui/material";
 
-import { CameraAlt as CameraAltIcon} from '@mui/icons-material';
-import VisuallyHiddenInput from '../components/Style/StyledComponents';
-
+import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
+import VisuallyHiddenInput from "../components/Style/StyledComponents";
+import { useInputValidation } from "6pp";
 
 const Login = () => {
+  
   const [isLogin, setIsLogin] = useState(true); // Control login/signup mode
   const [checked, setChecked] = useState(true); // Control Slide animation
   const toggleLogin = () => setIsLogin((prev) => !prev);
+
+  const name = useInputValidation("");
+  const bio = useInputValidation("");
+  const userName = useInputValidation("");
+  const password = useInputValidation("");
 
   return (
     <Container
@@ -53,36 +59,36 @@ const Login = () => {
             {isLogin ? "Welcome Back!" : "Create an Account"}
           </Typography>
           <Box component="form" style={{ width: "100%" }}>
-
-
-{/* for selecting avtar */}
-          {!isLogin && (
+            {/* for selecting avtar */}
+            {!isLogin && (
               <Stack position={"relative"} width={"10rem"} margin={"auto"}>
-                <Avatar sx ={{
-                      width:"10rem",
-                      height:"10rem",
-                      objectFit:"contain"
-                    }}
-                  />
+                <Avatar
+                  sx={{
+                    width: "10rem",
+                    height: "10rem",
+                    objectFit: "contain",
+                  }}
+                />
 
-                  <IconButton
-                    sx={{
-                      position:"absolute",
-                      bottom:"0",
-                      right:"0",
-                      color:"white",
-                      bgcolor:"rgba(0,0,0,0.5)",
-                      ":hover": {
-                        bgcolor:"rgba(0,0,0,0.7)",
-                      },
-                    }}
-                    component="label"
-                  >
-                    <>
-                      <CameraAltIcon />
-                      <VisuallyHiddenInput type="file" />
-                    </>
-                  </IconButton>
+                <IconButton
+                  sx={{
+                    position: "absolute",
+                    bottom: "0",
+                    right: "0",
+                    color: "white",
+                    bgcolor: "rgba(0,0,0,0.5)",
+                    ":hover": {
+                      bgcolor: "rgba(0,0,0,0.7)",
+                    },
+                  }}
+                  component="label"
+                >
+                  <>
+                    <CameraAltIcon />
+                    {/* add avtar file from ur pc */}
+                    <VisuallyHiddenInput type="file" />
+                  </>
+                </IconButton>
               </Stack>
             )}
 
@@ -101,8 +107,6 @@ const Login = () => {
               }}
             />
 
-           
-
             {/* Name - only for Sign Up */}
             {!isLogin && (
               <TextField
@@ -111,6 +115,8 @@ const Login = () => {
                 label="Name"
                 margin="normal"
                 variant="outlined"
+                value={name.value}
+                onChange={name.changeHandler}
                 sx={{
                   backgroundColor: "#f9f9f9",
                   "& .MuiOutlinedInput-root": {
@@ -129,6 +135,8 @@ const Login = () => {
                 variant="outlined"
                 multiline
                 rows={2}
+                value={bio.value}
+                onChange={bio.changeHandler}
                 sx={{
                   backgroundColor: "#f9f9f9",
                   "& .MuiOutlinedInput-root": {
@@ -138,8 +146,6 @@ const Login = () => {
               />
             )}
 
-            
-
             {/* Password */}
             <TextField
               required
@@ -148,6 +154,8 @@ const Login = () => {
               type="password"
               margin="normal"
               variant="outlined"
+              value={password.value}
+              onChange={password.changeHandler}
               sx={{
                 backgroundColor: "#f9f9f9",
                 "& .MuiOutlinedInput-root": {
@@ -156,7 +164,6 @@ const Login = () => {
               }}
             />
 
-            
             <Button
               sx={{
                 marginTop: 3,
@@ -166,7 +173,7 @@ const Login = () => {
                 color: "#ffffff",
                 "&:hover": {
                   backgroundColor: "#005a9e",
-                  transform: "scale(1.05)", 
+                  transform: "scale(1.05)",
                 },
                 transition: "transform 0.2s ease-in-out",
               }}
