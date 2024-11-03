@@ -15,16 +15,16 @@ import {
 import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
 import VisuallyHiddenInput from "../components/Style/StyledComponents";
 import { useInputValidation } from "6pp";
+import { userNameValidator } from "../utils/validators";
 
 const Login = () => {
-  
   const [isLogin, setIsLogin] = useState(true); // Control login/signup mode
   const [checked, setChecked] = useState(true); // Control Slide animation
   const toggleLogin = () => setIsLogin((prev) => !prev);
 
   const name = useInputValidation("");
   const bio = useInputValidation("");
-  const userName = useInputValidation("");
+  const userName = useInputValidation("", userNameValidator);
   const password = useInputValidation("");
 
   return (
@@ -92,21 +92,6 @@ const Login = () => {
               </Stack>
             )}
 
-            {/* Username */}
-            <TextField
-              required
-              fullWidth
-              label="Username"
-              margin="normal"
-              variant="outlined"
-              sx={{
-                backgroundColor: "#f9f9f9",
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "8px",
-                },
-              }}
-            />
-
             {/* Name - only for Sign Up */}
             {!isLogin && (
               <TextField
@@ -124,6 +109,31 @@ const Login = () => {
                   },
                 }}
               />
+            )}
+
+            {/* Username */}
+            <TextField
+              required
+              fullWidth
+              label="Username"
+              margin="normal"
+              variant="outlined"
+              value={userName.value}
+              onChange={userName.changeHandler}
+              sx={{
+                backgroundColor: "#f9f9f9",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "8px",
+                },
+              }}
+            />
+
+            {/* if user name is not valid */}
+
+            {userName.error && (
+              <Typography color="error" variant="caption">
+                {userName.error}
+              </Typography>
             )}
 
             {/* Bio - only for Sign Up */}
