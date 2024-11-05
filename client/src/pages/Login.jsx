@@ -14,7 +14,7 @@ import {
 
 import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
 import VisuallyHiddenInput from "../components/Style/StyledComponents";
-import { useInputValidation } from "6pp";
+import { useFileHandler, useInputValidation } from "6pp";
 import { userNameValidator } from "../utils/validators";
 
 const Login = () => {
@@ -27,7 +27,26 @@ const Login = () => {
   const userName = useInputValidation("", userNameValidator);
   const password = useInputValidation("");
 
+  // for adding image
+  const avatar =  useFileHandler("single");
+
+
+  //form handler function
+  const handleLogin = (e) => {
+    e.preventDefault();
+  }
+
+   const handleSignUp = (e) => {
+    e.preventDefault();
+  }
+
   return (
+
+    <div  
+      style={{
+        backgroundImage:"linear-gradient(rgb(152, 130, 234), rgb(224, 159, 174))",
+      }}
+    >
     <Container
       component="main"
       maxWidth="xs"
@@ -58,7 +77,10 @@ const Login = () => {
           <Typography variant="h5" color="primary" fontWeight="bold" mb={2}>
             {isLogin ? "Welcome Back!" : "Create an Account"}
           </Typography>
-          <Box component="form" style={{ width: "100%" }}>
+          <Box component="form" style={{ width: "100%" }}
+           onSubmit={isLogin ? handleLogin : handleSignUp}
+          >
+
             {/* for selecting avtar */}
             {!isLogin && (
               <Stack position={"relative"} width={"10rem"} margin={"auto"}>
@@ -68,7 +90,14 @@ const Login = () => {
                     height: "10rem",
                     objectFit: "contain",
                   }}
+                  src={avatar.preview}
                 />
+
+{avatar.error && (
+              <Typography m={"1rem"} color="error" variant="caption">
+                {avatar.error}
+              </Typography>
+            )}
 
                 <IconButton
                   sx={{
@@ -86,7 +115,7 @@ const Login = () => {
                   <>
                     <CameraAltIcon />
                     {/* add avtar file from ur pc */}
-                    <VisuallyHiddenInput type="file" />
+                    <VisuallyHiddenInput type="file" onChange={avatar.changeHandler}/>
                   </>
                 </IconButton>
               </Stack>
@@ -190,6 +219,7 @@ const Login = () => {
               variant="contained"
               type="submit"
               fullWidth
+
             >
               {isLogin ? "Login to Chat" : "Join the Chat"}
             </Button>
@@ -213,6 +243,7 @@ const Login = () => {
         </Paper>
       </Slide>
     </Container>
+    </div>
   );
 };
 
