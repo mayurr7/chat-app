@@ -14,7 +14,7 @@ import {
   Menu as MenuIcon,
   Search as SearchIcon,
   Group as GroupIcon,
-  Logout as LogoutIcon
+  Logout as LogoutIcon,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
@@ -93,7 +93,7 @@ const Header = () => {
                 onClick={navigateGroup}
               />
 
-<IconBtn
+              <IconBtn
                 title={"Logout"}
                 icon={<LogoutIcon />}
                 onClick={logoutHandler}
