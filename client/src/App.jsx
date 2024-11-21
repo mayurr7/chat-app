@@ -1,7 +1,8 @@
-import React,{lazy} from "react";
+import React,{lazy, Suspense} from "react";
 // lazy for code spliting
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import ProtectRoute from "./components/auth/ProtectRoute";
+import Loaders from "./components/layout/Loaders";
 //import Home from "./pages/Home";  insted of this we import dynmicaly like a following
 
 const Home = lazy(() => import('./pages/Home'));
@@ -14,7 +15,7 @@ let user = true;
 function App() {
   return (
     <BrowserRouter>
-     
+      <Suspense fallback={<Loaders/>}>
       <Routes>
         <Route  element={
         <ProtectRoute user={user} />}>
@@ -34,6 +35,8 @@ function App() {
         <Route path="*" element ={ <PageNotFound/>} />
          
       </Routes>
+      </Suspense>
+     
     </BrowserRouter>
   );
 }
