@@ -3,7 +3,7 @@ import { Grid, Skeleton, Stack } from "@mui/material";
 
 const Loaders = () => {
   return (
-    <Grid container height={"calc(100vh - 4rem"} spacing={"1rem"}>
+    <Grid container height={"calc(100vh - 4rem)"} spacing={"1rem"}>
       <Grid
         item
         sm={4}
@@ -19,7 +19,7 @@ const Loaders = () => {
       <Grid item xs={12} sm={8} md={5} lg={6} height={"100%"}>
         <Stack spacing={"1rem"}>
           {Array.from({ length: 10 }).map((_, index) => (
-            <Skeleton variant="rounded" height={"5rem"} />
+            <Skeleton key={index} variant="rounded" height={"5rem"} />
           ))}
         </Stack>
       </Grid>
