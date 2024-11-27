@@ -16,3 +16,16 @@ export const sampleChats = [
     members: ["1", "2"], 
   },
 ];
+
+export const sampleUsers = [
+  {
+    avatar : ["https://images.app.goo.gl/GJLdoqLVsZn3vV8w5"],
+    name: "mayur patil",
+    _id: "1",
+  },
+  {
+    avatar : ["https://images.app.goo.gl/GJLdoqLVsZn3vV8w5"],
+    name: "mayur tekale",
+    _id: "2",
+  },
+];
