@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { useState } from "react";
 import {
   AppBar,
+  Backdrop,
   Box,
   IconButton,
   Toolbar,
@@ -122,19 +123,21 @@ const Header = () => {
       </Box>
 
       { isSearch && (
-        <Suspense fallback= {<div>Loading...</div>}>
+        <Suspense fallback= {<Backdrop open />}>
           <SearchDialog/>
         </Suspense>
       )}
 
 { isNotification && (
-        <Suspense fallback= {<div>Loading...</div>}>
+               <Suspense fallback= {<Backdrop open />}>
+
           <NotificationDialog/>
         </Suspense>
       )}
 
 { isNewGroup && (
-        <Suspense fallback= {<div>Loading...</div>}>
+                <Suspense fallback= {<Backdrop open />}>
+
           <NewGroupDialog/>
         </Suspense>
       )}
