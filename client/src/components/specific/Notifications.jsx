@@ -1,39 +1,47 @@
-import { Avatar, Button, Dialog, DialogTitle, ListItem, Stack, Typography } from '@mui/material';
-import React, { memo } from 'react';
-import { sampleNotifications } from '../../Constants/sampleData';
+import {
+  Avatar,
+  Button,
+  Dialog,
+  DialogTitle,
+  ListItem,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React, { memo } from "react";
+import { sampleNotifications } from "../../Constants/sampleData";
 
 const Notifications = () => {
+  const friendRequestHandler = ({ _id, acceept }) => {};
+  return (
+    <Dialog open>
+      <Stack
+        p={{
+          xs: "1rem",
+          sm: "2rem",
+        }}
+        maxWidth={"25rem"}
+      >
+        <DialogTitle>Notifications</DialogTitle>
 
-  const friendRequestHandler = ({_id, acceept}) =>{
-
-  };
-  return (<Dialog open>
-    <Stack
-      p={{
-        xs: "1rem", sm:"2rem"
-      }} maxWidth={"25rem"}
-    >
-      <DialogTitle>Notifications</DialogTitle>
-
-      {
-        sampleNotifications.length > 0 ? (
-            sampleNotifications.map(({sender, _id}) =>(
-              <NotificationItem 
+        {sampleNotifications.length > 0 ? (
+          sampleNotifications.map(({ sender, _id }) => (
+            <NotificationItem
               sender={sender}
               _id={_id}
               handler={friendRequestHandler}
               key={_id}
-              />
-            ))
-        ): (<Typography textAlign={"center"}>0 Notifications</Typography>
-     )}
-    </Stack>
-  </Dialog>
+            />
+          ))
+        ) : (
+          <Typography textAlign={"center"}>0 Notifications</Typography>
+        )}
+      </Stack>
+    </Dialog>
   );
 };
 
-const NotificationItem = memo(({ sender, _id, handler}) => {
-  const { name, avatar} = sender;
+const NotificationItem = memo(({ sender, _id, handler }) => {
+  const { name, avatar } = sender;
   return (
     <ListItem>
       <Stack
@@ -42,7 +50,7 @@ const NotificationItem = memo(({ sender, _id, handler}) => {
         spacing={"1rem"}
         width={"100%"}
       >
-        <Avatar src= {avatar} />
+        <Avatar src={avatar} />
 
         <Typography
           variant="body1"
@@ -55,23 +63,28 @@ const NotificationItem = memo(({ sender, _id, handler}) => {
             width: "100%",
           }}
         >
-         { `${name} sent you a friend request.`}
+          {`${name} sent you a friend request.`}
         </Typography>
 
-       
-       <Stack direction={{
-        xs: "column",
-        sm: "row"
-       }}
-
-       >
-         <Button onClick={()=> handler({_id, acceept: true})}>Accept</Button>
-         <Button color= "error" onClick={()=> handler({_id, acceept: false})}>Reject</Button>
-       </Stack>
+        <Stack
+          direction={{
+            xs: "column",
+            sm: "row",
+          }}
+        >
+          <Button onClick={() => handler({ _id, acceept: true })}>
+            Accept
+          </Button>
+          <Button
+            color="error"
+            onClick={() => handler({ _id, acceept: false })}
+          >
+            Reject
+          </Button>
+        </Stack>
       </Stack>
     </ListItem>
   );
 });
 
-
-export default Notifications
+export default Notifications;
