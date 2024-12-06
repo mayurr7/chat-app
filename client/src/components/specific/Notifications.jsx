@@ -1,8 +1,12 @@
-import React from 'react';
-import { Dialog, DialogTitle, InputAdornment, List, ListItem, ListItemText, Stack, TextField, Typography } from '@mui/material';
- import { sampleNotifications } from '../../Constants/sampleData';
+import { Avatar, Button, Dialog, DialogTitle, ListItem, Stack, Typography } from '@mui/material';
+import React, { memo } from 'react';
+import { sampleNotifications } from '../../Constants/sampleData';
 
 const Notifications = () => {
+
+  const friendRequestHandler = ({_id, acceept}) =>{
+
+  };
   return (<Dialog open>
     <Stack
       p={{
@@ -28,9 +32,46 @@ const Notifications = () => {
   );
 };
 
-const NotificationItem = ({ sender, _id, handler}) => {
-  return <></>;
-};
+const NotificationItem = memo(({ sender, _id, handler}) => {
+  const { name, avatar} = sender;
+  return (
+    <ListItem>
+      <Stack
+        direction={"row"}
+        alignItems={"center"}
+        spacing={"1rem"}
+        width={"100%"}
+      >
+        <Avatar src= {avatar} />
+
+        <Typography
+          variant="body1"
+          sx={{
+            flexGlow: 1,
+            display: "-webkit-box",
+            WebkitLineClamp: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            width: "100%",
+          }}
+        >
+         { `${name} sent you a friend request.`}
+        </Typography>
+
+       
+       <Stack direction={{
+        xs: "column",
+        sm: "row"
+       }}
+
+       >
+         <Button onClick={()=> handler({_id, acceept: true})}>Accept</Button>
+         <Button color= "error" onClick={()=> handler({_id, acceept: false})}>Reject</Button>
+       </Stack>
+      </Stack>
+    </ListItem>
+  );
+});
 
 
 export default Notifications
