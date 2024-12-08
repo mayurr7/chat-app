@@ -29,3 +29,21 @@ export const sampleUsers = [
     _id: "2",
   },
 ];
+
+
+export const sampleNotifications = [
+  {
+    sender:{
+    avatar : ["https://images.app.goo.gl/GJLdoqLVsZn3vV8w5"],
+    name: "mayur patil",
+    },
+    _id: "1",
+  },
+  {
+    sender:{
+    avatar : ["https://images.app.goo.gl/GJLdoqLVsZn3vV8w5"],
+    name: "mayur tekale",
+    },
+    _id: "2",
+  },
+];
