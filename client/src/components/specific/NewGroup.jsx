@@ -27,8 +27,10 @@ const NewGroup = () => {
   };
 
   const submitHandler = () => {};
+
+  const closeHandler = () => {}
   return (
-    <Dialog open>
+    <Dialog open onClose={closeHandler}>
       <Stack
         p={{
           xs: "1rem",
@@ -51,7 +53,9 @@ const NewGroup = () => {
 
         <Stack>
           {members.map((i) => (
-            <UserItem user={i} key={i._id} handler={selectMemberHandler} />
+            <UserItem user={i} key={i._id} handler={selectMemberHandler} 
+            isAdded={selectedMembers.includes(i._id)}
+            />
           ))}
         </Stack>
 
