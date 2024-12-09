@@ -47,3 +47,38 @@ export const sampleNotifications = [
     _id: "2",
   },
 ];
+
+export const sampleMessage = [
+  {
+    attachment:[
+      {
+        public_id: "mbhdj",
+        url: "",
+      },
+    ],
+    content: "hdh hjdhhd djdh",
+    _id: "jhgfgfd",
+    sender: {
+      _id: "user._id",
+      name: "hghdg",
+    },
+    chat: "chatId",
+    createdAt: "2020-02-01T0:41:30.630Z",
+  },
+  {
+    attachment:[
+      {
+        public_id: "mbhdj 2",
+        url: "",
+      },
+    ],
+    content: "hdh hjdhhd djdh 2",
+    _id: "jhgfdjgf",
+    sender: {
+      _id: "jhgfdjgf",
+      name: "hghdg",
+    },
+    chat: "chatId",
+    createdAt: "2020-02-01T0:41:30.630Z",
+  },
+];
