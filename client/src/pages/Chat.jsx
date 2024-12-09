@@ -1,16 +1,27 @@
-import React, { useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 import AppLayout from '../components/layout/AppLayout';
 import { IconButton, Stack } from '@mui/material';
 import { greayColor } from '../Constants/color';
 import ChatItem from '../components/Shared/ChatItem';
 import { AttachFile as AttachFileIcon, Send as SendIcon} from '@mui/icons-material';
 import { InputBox } from '../components/Style/StyledComponents';
+import { orange } from '@mui/material/colors';
+import FileMenu from '../components/dialogs/FileMenu';
+import { sampleMessage } from '../Constants/sampleData';
+import MessageComponent from '../components/Shared/MessageComponent';
+
+const user = {
+  _id: "jhgfdjgf",
+  name: "mayur"
+}
 
 const Chat = () => {
   const containerRef = useRef(null);
 
+  
+
   return (
-    <>
+    <Fragment>
       <Stack
         ref={containerRef}
         boxSizing={"border-box"}
@@ -21,9 +32,15 @@ const Chat = () => {
         sx={{
           overflowX: "hidden",
           overflowY: "auto",
+          backgroundColor: "rgba(0,0,0,0.1)"
         }}
       >
           {/* Message Rnder */}
+          {
+            sampleMessage.map((i) => (
+              <MessageComponent message={i} user={user} />
+            ))
+          }
       </Stack>
 
       <form 
@@ -36,18 +53,39 @@ const Chat = () => {
         alignItems={"center"}
         position={"relative"}
         >
-          <IconButton>
+          <IconButton
+            sx={{
+              position: "absolute",
+              left: "1.5rem",
+              rotate: "30deg",
+            }}
+           
+          >
             <AttachFileIcon />
           </IconButton>
 
           <InputBox placeholder='Type Message...'/>
 
-          <IconButton>
+          <IconButton
+            type='submit'
+            sx={{
+              rotate: "-30deg",
+              bgcolor: "blueviolet",
+              color: "grey",
+              marginLeft: "1rem",
+              padding: "0.5rem",
+              "&:hover": {
+                bgcolor: "error.dark",
+              },
+            }}
+          >
             <SendIcon />
           </IconButton>
         </Stack>
+        
       </form>
-    </>
+      <FileMenu  />
+    </Fragment>
   )
 }
 
