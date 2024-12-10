@@ -3,7 +3,7 @@ import React from 'react'
 
 const FileMenu = ({ anchorEl }) => {
   return (
-    <Menu anchorEl={anchorEl}>
+    <Menu anchorEl={anchorEl} open={false}>
             sad
     </Menu>
   )
