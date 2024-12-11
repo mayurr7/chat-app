@@ -1,3 +1,4 @@
+
 export const sampleChats = [
   {
     avatar : ["https://images.app.goo.gl/BPwZ4DJMduHaWsJHA"],
@@ -51,10 +52,7 @@ export const sampleNotifications = [
 export const sampleMessage = [
   {
     attachment:[
-      {
-        public_id: "mbhdj",
-        url: "",
-      },
+      
     ],
     content: "hi bro",
     _id: "jhgfgfd",
@@ -69,10 +67,10 @@ export const sampleMessage = [
     attachment:[
       {
         public_id: "mbhdj 2",
-        url: "",
+        url: "https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png",
       },
     ],
-    content: "hello bhaii",
+    content: "",
     _id: "jhgfdjgf",
     sender: {
       _id: "jhgfdjgf",
