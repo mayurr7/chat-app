@@ -1,4 +1,4 @@
-export const fileFormat = (url = "") => {
+const fileFormat = (url = "") => {
   const fileExt = url.split(".").pop();
 
   if (fileExt === "mp4" || fileExt === "webm" || fileExt === "ogg") {
@@ -20,3 +20,8 @@ export const fileFormat = (url = "") => {
 
   return "file";
 };
+
+
+const transformImage = (url = "", width=100) => url;
+
+export {fileFormat, transformImage};
