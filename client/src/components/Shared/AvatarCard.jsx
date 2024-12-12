@@ -27,4 +27,4 @@ const AvatarCard = ({avatar = [], max=4}) => {
   </Stack>
 }
 
-export default AvatarCard
+export default AvatarCard;
