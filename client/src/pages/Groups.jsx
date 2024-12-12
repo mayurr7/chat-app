@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -7,25 +7,34 @@ import {
   Drawer,
   Stack,
   Typography,
-  Avatar
+  Avatar,
+  TextField,
 } from "@mui/material";
 import {
+  Done as DoneIcon,
+  Edit as EditIcon,
   AvTimer,
   KeyboardBackspace as KeyboardBackspaceIcon,
-  Menu as MenuIcon
+  Menu as MenuIcon,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "../components/Style/StyledComponents";
-import  AvatarCard from "../components/Shared/AvatarCard"
+import AvatarCard from "../components/Shared/AvatarCard";
 import { sampleChats } from "../Constants/sampleData";
 
-
 const Groups = () => {
-  const chatId = "adsa";
+  const chatId = useSearchParams()[0].get("group");
+ 
+  
 
   const navigate = useNavigate();
 
   const [isMobilemenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [groupName, setGroupName] = useState("");
+  const [groupNameUpdatedValue, setGroupNameUpdatedValue] = useState("");
 
   const navigateBack = () => {
     navigate("/");
@@ -37,10 +46,24 @@ const Groups = () => {
 
   const handleMobileClose = () => setIsMobileMenuOpen(false);
 
+    const updateGroupName = () => {
+      setIsEdit(false);
+    }
+
+    useEffect(()=> {
+      setGroupName(`Group Name ${chatId}`);
+      setGroupNameUpdatedValue(`Group Name ${chatId}`);
+      return () => {
+        setGroupName("");
+        setGroupNameUpdatedValue("");
+        setIsEdit(false);
+      };
+    }, [chatId]);
+
   const IconBtns = (
     <>
       <Box
-        sx={{
+        sx={{ 
           display: {
             xs: "block",
             sm: "none",
@@ -75,6 +98,32 @@ const Groups = () => {
     </>
   );
 
+  const GroupName = (
+    <Stack
+      direction={"row"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      spacing={"1rem"}
+      padding={"3rem"}
+    >
+      {isEdit ? (
+        <>
+          <TextField value={groupNameUpdatedValue} onChange={(e) => setGroupNameUpdatedValue(e.target.value)}/>
+          <IconButton onClick={updateGroupName}>
+            <DoneIcon />
+          </IconButton>
+        </>
+      ) : (
+        <>
+          <Typography variant="h4">{groupName}</Typography>
+          <IconButton onClick={() => setIsEdit(true)}>
+            <EditIcon />
+          </IconButton>
+        </>
+      )}
+    </Stack>
+  );
+
   return (
     <Grid container height={"100vh"}>
       <Grid
@@ -88,7 +137,7 @@ const Groups = () => {
         sm={4}
         bgcolor={"lightslategray"}
       >
-        <GroupList myGroups={sampleChats} chatId={chatId}/>
+        <GroupList myGroups={sampleChats} chatId={chatId} />
       </Grid>
 
       <Grid
@@ -104,6 +153,8 @@ const Groups = () => {
         }}
       >
         {IconBtns}
+
+        {groupName && GroupName}
       </Grid>
 
       <Drawer
@@ -116,16 +167,16 @@ const Groups = () => {
         open={isMobilemenuOpen}
         onClose={handleMobileClose}
       >
-        <GroupList w={"50vw"} />
+        <GroupList w="50vw" myGroups={sampleChats} chatId={chatId} />
       </Drawer>
     </Grid>
   );
 };
 
 const GroupList = ({ w = "100%", myGroups = [], chatId }) => (
-  <Stack>
+  <Stack width={w}>
     {myGroups.length > 0 ? (
-      myGroups.map((group) => <GroupListItem group={group} key= {group._id} />)
+      myGroups.map((group) => <GroupListItem group={group} chatId={chatId} key={group._id} />)
     ) : (
       <Typography textAlign={"center"} padding="1rem">
         No group
@@ -138,7 +189,12 @@ const GroupListItem = memo(({ group, chatId }) => {
   const { name, avatar, _id } = group;
 
   return (
-    <Link to={`?group =${_id}`}>
+    <Link
+      to={`?group=${_id}`}
+      onClick={(e) => {
+        if (chatId ===_id)e.preventDefault();
+      }}
+    >
       <Stack>
         <AvatarCard avatar={avatar} />
         <Typography>{name}</Typography>
