@@ -24,7 +24,7 @@ const AvatarCard = ({avatar = [], max=4}) => {
         ))}
        </Box>
     </AvatarGroup>
-  </Stack>
+    </Stack>
 }
 
 export default AvatarCard;
