@@ -9,6 +9,8 @@ import {
   Typography,
   Avatar,
   TextField,
+  ButtonGroup,
+  Button,
 } from "@mui/material";
 import {
   Done as DoneIcon,
@@ -16,6 +18,8 @@ import {
   AvTimer,
   KeyboardBackspace as KeyboardBackspaceIcon,
   Menu as MenuIcon,
+  Add as AddIcon,
+  Delete as DeleteIcon
 } from "@mui/icons-material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "../components/Style/StyledComponents";
@@ -36,6 +40,8 @@ const Groups = () => {
   const [groupName, setGroupName] = useState("");
   const [groupNameUpdatedValue, setGroupNameUpdatedValue] = useState("");
 
+  const[confirmDeleteDialog, setconfirmDeleteDialog] = useState(false);
+
   const navigateBack = () => {
     navigate("/");
   };
@@ -48,6 +54,18 @@ const Groups = () => {
 
     const updateGroupName = () => {
       setIsEdit(false);
+    }
+
+    const openComfirmDeleteHandler = () => {
+        setconfirmDeleteDialog(true);
+    }
+
+    const closeComfirmDeleteHandler = () => {
+      setconfirmDeleteDialog(false);
+  }
+
+    const openAddMemberHandler = () => {
+
     }
 
     useEffect(()=> {
@@ -124,6 +142,24 @@ const Groups = () => {
     </Stack>
   );
 
+  const ButtonGroup =(
+    <Stack 
+      direction={{
+        xs: "column-reverse",
+        sm: "row"
+      }}
+      spacing={"1rem"}
+      p={{
+        xs:"0",
+        sm:"1rem",
+        md:"1rem 4rem"
+      }}
+    >
+<Button size="large" variant="contained" startIcon={<AddIcon/>} onClick={openAddMemberHandler} >Add Member</Button>
+<Button size="large" color="error" startIcon={<DeleteIcon/>} onClick={openComfirmDeleteHandler}>Delete Group</Button>
+    </Stack>
+  )
+
   return (
     <Grid container height={"100vh"}>
       <Grid
@@ -154,7 +190,37 @@ const Groups = () => {
       >
         {IconBtns}
 
-        {groupName && GroupName}
+        {groupName && (
+        <>
+       {GroupName}
+
+       <Typography 
+        margin={"2rem"}
+        alignSelf={"flex-start"}
+        variant="body1"
+       >
+        Members
+       </Typography>
+
+       <Stack 
+        maxWidth={"45rem"}
+        width={"100%"}
+        boxSizing={"border-box"}
+        padding={{
+          sm: "1rem",
+          xs: "0",
+          md: "1rem 4rem"
+        }}
+        spacing={"2rem"}
+        bgcolor={"bisque"}
+        height={"50vh"}
+        overflow={"auto"}
+       >
+
+       </Stack>
+          {ButtonGroup}
+       </>
+        )}
       </Grid>
 
       <Drawer
