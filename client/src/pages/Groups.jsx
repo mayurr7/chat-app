@@ -25,7 +25,8 @@ import {
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Link } from "../components/Style/StyledComponents";
 import AvatarCard from "../components/Shared/AvatarCard";
-import { sampleChats } from "../Constants/sampleData";
+import { sampleChats, sampleUsers } from "../Constants/sampleData";
+import UserItem from "../components/Shared/UserItem";
 
 const isAddMember = false;
 
@@ -77,6 +78,10 @@ const Groups = () => {
   const deleteHandler = () => {
     closeComfirmDeleteHandler();
   };
+
+  const removeMemberHandeler = (id) =>{
+
+  }
 
   useEffect(() => {
     setGroupName(`Group Name ${chatId}`);
@@ -239,10 +244,26 @@ const Groups = () => {
                 md: "1rem 4rem",
               }}
               spacing={"2rem"}
-              bgcolor={"bisque"}
+             
               height={"50vh"}
               overflow={"auto"}
-            ></Stack>
+            >
+
+{/* Members */}
+
+{
+  sampleUsers.map((i) => (
+    <UserItem user={i} key={i._id} isAdded
+    styling={{
+      boxShadow: "0 0 0.5rem rgba(0,0,0,0.2)",
+      borderRadius:"1rem",
+    }}
+    handler={removeMemberHandeler}
+    />
+  ))
+}
+
+            </Stack>
             {ButtonGroup}
           </>
         )}
