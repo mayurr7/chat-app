@@ -27,6 +27,7 @@ import { Link } from "../components/Style/StyledComponents";
 import AvatarCard from "../components/Shared/AvatarCard";
 import { sampleChats, sampleUsers } from "../Constants/sampleData";
 import UserItem from "../components/Shared/UserItem";
+import { bgGradient } from "../Constants/color";
 
 const isAddMember = false;
 
@@ -79,13 +80,15 @@ const Groups = () => {
     closeComfirmDeleteHandler();
   };
 
-  const removeMemberHandeler = (id) =>{
-
-  }
+  const removeMemberHandeler = (id) => {};
 
   useEffect(() => {
+   if(chatId){
     setGroupName(`Group Name ${chatId}`);
     setGroupNameUpdatedValue(`Group Name ${chatId}`);
+   }
+
+
     return () => {
       setGroupName("");
       setGroupNameUpdatedValue("");
@@ -201,9 +204,10 @@ const Groups = () => {
             xs: "none",
             sm: "block",
           },
+         
         }}
         sm={4}
-        bgcolor={"lightslategray"}
+        
       >
         <GroupList myGroups={sampleChats} chatId={chatId} />
       </Grid>
@@ -244,25 +248,23 @@ const Groups = () => {
                 md: "1rem 4rem",
               }}
               spacing={"2rem"}
-             
               height={"50vh"}
               overflow={"auto"}
             >
+              {/* Members */}
 
-{/* Members */}
-
-{
-  sampleUsers.map((i) => (
-    <UserItem user={i} key={i._id} isAdded
-    styling={{
-      boxShadow: "0 0 0.5rem rgba(0,0,0,0.2)",
-      borderRadius:"1rem",
-    }}
-    handler={removeMemberHandeler}
-    />
-  ))
-}
-
+              {sampleUsers.map((i) => (
+                <UserItem
+                  user={i}
+                  key={i._id}
+                  isAdded
+                  styling={{
+                    boxShadow: "0 0 0.5rem rgba(0,0,0,0.2)",
+                    borderRadius: "1rem",
+                  }}
+                  handler={removeMemberHandeler}
+                />
+              ))}
             </Stack>
             {ButtonGroup}
           </>
@@ -302,7 +304,13 @@ const Groups = () => {
 };
 
 const GroupList = ({ w = "100%", myGroups = [], chatId }) => (
-  <Stack width={w}>
+  <Stack width={w} 
+  sx={{
+    bgcolor :"#2C3E50",
+    height: "100vh",
+    overflow: "auto"
+  }}
+  >
     {myGroups.length > 0 ? (
       myGroups.map((group) => (
         <GroupListItem group={group} chatId={chatId} key={group._id} />

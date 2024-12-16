@@ -9,7 +9,6 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { orange } from "../../Constants/color";
 import {
   Add as AddIcon,
   Menu as MenuIcon,
@@ -60,12 +59,13 @@ const Header = () => {
         <AppBar
           position="static"
           sx={{
-            bgcolor: orange,
+            bgcolor: "#34495E",
           }}
         >
           <Toolbar>
             <Typography
               variant="h6"
+             
               sx={{
                 display: { xs: "none", sm: "block" },
               }}
@@ -155,4 +155,4 @@ const IconBtn = ({ title, icon, onClick }) => {
   );
 };
 
-export default Header;
+export default Header; 

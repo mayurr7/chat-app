@@ -17,7 +17,13 @@ const ChatList = ({
 }
 ) => {
     
-  return <Stack width={w} direction={"column"}>
+  return(
+     <Stack width={w} direction={"column"}
+ sx={{
+    overflow:"auto",
+     height:"100%",
+     maxHeight:"100%"
+ }}>
     {
         chats?.map((data, index) => {
 
@@ -44,6 +50,7 @@ const ChatList = ({
         })
     }
   </Stack>
+  )
 }
 
-export default ChatList
+export default ChatList;

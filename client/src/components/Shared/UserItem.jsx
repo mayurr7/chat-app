@@ -37,7 +37,7 @@ const UserItem = ({ user, handler, handlerIsLoading,  isAdded=false, styling={}}
           size="small"
           sx={{
             bgcolor:isAdded ? "error.main" : "primary.main",
-            color: "white",
+            color: "lightblue",
             "&:hover": {
               bgcolor: isAdded ? "error.dark" : "primary.dark",
             },
