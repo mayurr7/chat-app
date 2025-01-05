@@ -16,6 +16,10 @@ const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const DashBoard = lazy(() => import("./pages/admin/DashBoard"));
 
+const MessageManagment = lazy(() => import("./pages/admin/MessageManagment"));
+const UserManagment = lazy(() => import("./pages/admin/UserManagment"));
+const ChatManagment = lazy(() => import("./pages/admin/ChatManagment"));
+
 let user = true;
 
 function App() {
@@ -39,6 +43,9 @@ function App() {
 
           <Route path="/admin" element={<AdminLogin/>} />
           <Route path="/admin/dashboard" element={<DashBoard/>} />
+          <Route path="/admin/users" element={<UserManagment/>} />
+          <Route path="/admin/chats" element={<ChatManagment/>} />
+          <Route path="/admin/messages" element={<MessageManagment/>} />
 
           {/* if error in page then this route */}
           <Route path="*" element={<PageNotFound />} />
