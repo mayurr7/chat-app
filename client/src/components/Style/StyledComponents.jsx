@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import { Link as LinkComponent} from 'react-router-dom';
+import { Link as LinkComponent } from "react-router-dom";
 import { greayColor } from "../../Constants/color";
 
 // we styled that input this is add image when click on avtar
@@ -23,11 +23,10 @@ export const Link = styled(LinkComponent)`
   text-decoration: none;
   color: black;
   padding: 1rem;
-  &:hover{
-    background-color: rgba(0,0,0,0.1);
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 `;
-
 
 export const InputBox = styled("input")`
   width: 100%;
@@ -37,5 +36,30 @@ export const InputBox = styled("input")`
   padding: 0 3rem;
   border-radius: 1.5rem;
   background-color: ${greayColor};
+`;
+
+export const SearchField = styled("input")`
+  padding: 1rem 2rem;
+  width: 20vmax;
+  border: none;
+  outline: none;
+  border-radius: 1.5rem;
+  background-color:rgb(227, 218, 218);
+  font-size: 1.1rem;
+`;
+
+export const CurveButton = styled("button")`
+  padding: 1rem 2rem;
+  width: 15vmax;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 1.5rem;
+  background-color: black;
+  color: white;
+  font-size: 1.1rem;
+  &:hover {
+  background-color: rgba(0,0,0,0.8);
+  };
 `;
 
