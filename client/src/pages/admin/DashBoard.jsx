@@ -4,6 +4,7 @@ import {Box, Container, Paper, Stack, Typography } from '@mui/material'
 import { AdminPanelSettings as AdminPanelSettingsIcon, Group as GroupIcon, Message as MessageIcon, Notifications as NotificationsIcons, Person as PersonIcon} from '@mui/icons-material';
 import moment from "moment"; 
 import { SearchField, CurveButton } from '../../components/Style/StyledComponents';
+import { DoughnutChart, LineChart } from "../../components/specific/Chart";
 
 const DashBoard = () => {
   const Appbar = (
@@ -74,7 +75,8 @@ const DashBoard = () => {
                   <Typography margin={"2rem 0"} variant={'h4'}>
                     Last Messages
                     </Typography>
-                    {"Chat"}                  
+
+                    <LineChart value={[2,22,9,21,]}/>                    
                 </Paper>
                 </Stack>
 
@@ -94,7 +96,7 @@ const DashBoard = () => {
                     height:"25rem",
                   }}
                 >
-                    {"Dougnut Chart"}
+                    <DoughnutChart/>
 
                     <Stack  
                         position={"absolute"}
