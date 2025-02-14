@@ -92,11 +92,11 @@ const DashBoard = () => {
                     width:{xs: "100%", sm:"50%"},
                     position: "relative",
                     width:"100%",
-                    maxWidth:"25rem",
-                    height:"25rem",
+                    maxWidth:"25rem"
+                   
                   }}
                 >
-                    <DoughnutChart/>
+                    <DoughnutChart labels={["Single chats", "Groups Chats"]} value={[23, 66]}/>
 
                     <Stack  
                         position={"absolute"}
