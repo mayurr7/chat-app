@@ -81,8 +81,33 @@ const LineChart = ({value=[]}) => {
   );
 };
 
-const DoughnutChart = () => {
-  return <div></div>;
+const doughnutChartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  cutout: 120,
+};
+
+const DoughnutChart = ({value = [], labels = []}) => {
+  const data = {
+    labels,
+    datasets: [
+      {
+      data: value,
+    
+      fill: true,
+      backgroundColor : ["rgba(10, 54, 141, 0.43)", "rgba(187, 36, 28, 0.38)"],
+      hoverBackgroundColor: ["rgb(39, 33, 162)", "rgb(162, 33, 33)"],
+      borderColor: ["rgb(39, 33, 162)", "rgb(162, 33, 33)"],
+      offset: 40, 
+    
+    },
+  ],
+  };
+  return <Doughnut style={{zIndex: 10}} data={data} options={doughnutChartOptions}/>
 };
 
 export { LineChart, DoughnutChart };
