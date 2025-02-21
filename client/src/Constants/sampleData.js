@@ -150,3 +150,41 @@ export const sampleMessage = [
     createdAt: "2020-02-01T0:41:30.630Z",
   },
 ];
+
+// for user maanagment
+export const dashboardData = {
+  users: [
+    {
+      _id: "1",
+      name: "Mayur",
+      avatar: "https://i.pravatar.cc/150?img=3",
+      username: "mayur",
+      friends: 20,
+      groups: 5,
+    },
+    {
+      _id: "2",
+      name: "Nikita",
+      avatar: "https://i.pravatar.cc/150?img=2",
+      username: "niki",
+      friends: 50,
+      groups: 5,
+    },
+    {
+      _id: "3",
+      name: "Rahul",
+      avatar: "",
+      username: "rahul23",
+      friends: 35,
+      groups: 8,
+    },
+    {
+      _id: "4",
+      name: "Sneha",
+      avatar: "https://i.pravatar.cc/150?img=4",
+      username: "sneha_k",
+      friends: 40,
+      groups: 10,
+    },
+  ],
+};
