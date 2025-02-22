@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminLayout from '../../components/layout/AdminLayout';
 import Table  from '../../components/Shared//Table';
 import { Avatar } from '@mui/material';
+import {dashboardData} from '../../Constants/sampleData';
+import {transformImage} from '../../lib/features';
 
 
 const columns = [
@@ -46,6 +48,10 @@ const columns = [
 const UserManagment = () => {
 
   const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    setRows(dashboardData.users.map(i=> ({...i, id:i._id, avtar:transformImage(i.avatar, 50)})));
+  }, [])
   return (
      <AdminLayout>
         <Table heading={"All Users"} columns={columns} rows={rows}/>
