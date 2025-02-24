@@ -131,6 +131,7 @@ export const sampleMessage = [
       name: "mayur",
     },
     chat: "chatId",
+    groupChat: false,
     createdAt: "2020-02-01T0:41:30.630Z",
   },
   {
@@ -147,6 +148,7 @@ export const sampleMessage = [
       name: "kunal",
     },
     chat: "chatId",
+    groupChat: true,
     createdAt: "2020-02-01T0:41:30.630Z",
   },
 ];
@@ -187,4 +189,68 @@ export const dashboardData = {
       groups: 10,
     },
   ],
+
+  chats: [
+    {
+      _id: "1",
+      name: "Tatya boys",
+      avatar: ["https://i.pravatar.cc/150?img=2"],
+     
+      members: [{_id:"1", avatar:"https://i.pravatar.cc/150?img=4"},
+       {_id:"2", avatar:"https://i.pravatar.cc/150?img=4"}
+       ],
+      totalMembers: 2,  
+      totalMessages: 20,
+      creator: {
+        name: "mayur",
+        avatar: "https://i.pravatar.cc/150?img=3",
+      },
+    },
+    {
+      _id: "2",
+      name: "Nilu Phule",
+      avatar: ["https://i.pravatar.cc/150?img=4"],
+     
+      members: [{_id:"1", avatar:"https://i.pravatar.cc/150?img=4"},
+        {_id:"2", avatar:"https://i.pravatar.cc/150?img=4"}
+        ],
+      totalMembers: 3,  
+      totalMessages: 40,
+      creator: {
+        name: "nikita",
+        avatar: "https://i.pravatar.cc/150?img=5",
+      },
+    },
+  ],
+
+
+  messages: [
+    {
+      attachment:["https://i.pravatar.cc/150?img=4"],
+      content: "heyy budddy",
+      _id: "jhgfgfd",
+      sender: {
+        avatar: "https://i.pravatar.cc/150?img=4",
+        name: "mayur",
+      },
+      chat: "chatId",
+      groupChat: false,
+      createdAt: "2020-02-01T0:41:30.630Z",
+      
+    },
+    {
+      attachment:[
+        "https://i.pravatar.cc/150?img=4"
+      ],
+      content: "hi bro",
+      _id: "jhgfgfd",
+      sender: {
+       avatar: "https://i.pravatar.cc/150?img=4",
+        name: "mayur",
+      },
+      chat: "chatId",
+      groupChat: true,
+      createdAt: "2020-02-01T0:41:30.630Z",
+    },
+  ]
 };
