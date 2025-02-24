@@ -19,7 +19,7 @@ const columns = [
   headerName: "Avatar",
   headerClassName: "table-header",
   width: 150,
-  renderCell:(params) => <Avatar alt={params.row.name} src={params.row.avatar}/>
+  renderCell:(params) => <AvatarCard avatar={params.row.avatar}/>
 },
 {
   field: "name",
@@ -68,7 +68,23 @@ const ChatManagment = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    // setRows(dashboardData.users.map(i=> ({...i, id:i._id, avtar:transformImage(i.avatar, 50)})));
+    setRows(
+      dashboardData.chats.map((i) => ({
+      ...i,
+      id: i._id,
+      avatar: Array.isArray(i.avatar)
+        ? i.avatar.map((img) => transformImage(img, 50))
+        : transformImage(i.avatar, 50),
+
+        members: i.members.map((i) => transformImage(i.avatar, 50)),
+
+        creator: {
+            name: i.creator.name,
+            avatar: transformImage(i.creator.avatar, 50),
+        },
+      creator: i.creator || { name: "Unknown", avatar: "" }, 
+    })));
+     
   }, [])
   return (
      <AdminLayout>
