@@ -1,36 +1,35 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
-    {
+  {
     name: {
-        type: String,
-        require: true
+      type: String,
+      require: true,
     },
     username: {
-        type: String,
-        require: true,
-        unique: true
+      type: String,
+      require: true,
+      unique: true,
     },
     password: {
-        type: String,
-        require: true,
-        select: false,
+      type: String,
+      require: true,
+      select: false,
     },
     avatar: {
-        public_id: {
+      public_id: {
         type: String,
-        require: true
-        },    
-        url: {
-            type: String,
-            require: true
-        }
-    }
-
-},{
+        require: true,
+      },
+      url: {
+        type: String,
+        require: true,
+      },
+    },
+  },
+  {
     timestamps: true,
-}
-
+  }
 );
 
-export const User = models.User || ("User", Schema);
+export const User = mongoose.models.User || model("User", userSchema);
