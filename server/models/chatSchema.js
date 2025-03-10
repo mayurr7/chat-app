@@ -1,6 +1,6 @@
 import mongoose,{ Schema, Types, model } from "mongoose";
 
-const Schema = new Schema(
+const schema = new Schema(
   {
     name: {
       type: String,
@@ -26,4 +26,4 @@ const Schema = new Schema(
   }
 );
 
-export const Chat = mongoose.models.Chat || ("Chat", Schema);
+export const Chat = mongoose.models.Chat || model("Chat", schemachema);
