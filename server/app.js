@@ -3,6 +3,7 @@ import userRoute from './routes/user.js';
 import { connectDb } from "./utils/features.js";
 import dotenv from "dotenv";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config({
     path: "./.env",
@@ -16,6 +17,7 @@ connectDb(mongoURI);
 const app  = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
     console.log("home page");
