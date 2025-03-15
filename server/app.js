@@ -1,9 +1,12 @@
 import express from "express";
-import userRoute from './routes/user.js';
 import { connectDb } from "./utils/features.js";
 import dotenv from "dotenv";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import cookieParser from "cookie-parser";
+
+import userRoute from './routes/user.js';
+import chatRoute from "./routes/chat.js";
+
 
 dotenv.config({
     path: "./.env",
@@ -22,9 +25,15 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
     console.log("home page");
     
-})
+});
+
+
 
 app.use('/user', userRoute);
+app.use('/chat', chatRoute);
+
+
+
 
 app.use(errorMiddleware);
 
