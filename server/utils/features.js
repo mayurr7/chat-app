@@ -29,6 +29,9 @@ const sendToken = (res, user, code, message) => {
             sucess: true,
             message,
         });
-}
+};
 
-export {connectDb, sendToken, cookieOption};
+
+const emitEvent = (req, event, user, data) => {};
+
+export {connectDb, sendToken, cookieOption, emitEvent};
