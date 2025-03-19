@@ -35,9 +35,6 @@ app.get("/", (req, res) => {
 app.use('/user', userRoute);
 app.use('/chat', chatRoute);
 
-
-
-
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {
