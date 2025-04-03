@@ -24,7 +24,7 @@ const schema = new Schema(
       required: true,
     },
 
-    creator: {
+    chat: {
       type: Types.ObjectId,
       ref: "Chat",
       required: true,
