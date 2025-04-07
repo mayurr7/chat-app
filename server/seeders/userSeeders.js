@@ -1,5 +1,5 @@
-import { User } from "../models/userSchema.js";
 import { faker } from "@faker-js/faker";
+import { User } from "../models/userSchema.js";
 
 const createUser = async (numUser) => {
   try {
@@ -23,11 +23,13 @@ const createUser = async (numUser) => {
     await Promise.all(userPromise);
 
     // console.log(`${numUser} users created successfully!`);
-    process.exit(0);  
+    process.exit(0);
   } catch (error) {
     console.error("Error creating users:", error);
     process.exit(1);
   }
 };
 
+
 export { createUser };
+
