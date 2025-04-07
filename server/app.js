@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 import userRoute from './routes/user.js';
 import chatRoute from "./routes/chat.js";
+import { createGroupsChats, createMessagesInChat, createSingleChats } from "./seeders/chatSeeders.js";
 import { createUser } from "./seeders/userSeeders.js";
 
 
@@ -17,6 +18,10 @@ const mongoURI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 5000;
 
 connectDb(mongoURI);
+
+// createSingleChats(10);
+// createGroupsChats(10);
+//createMessagesInChat(10, "67f3a5b2972ba08aaf5aa41b")
 
 const app  = express();
 
