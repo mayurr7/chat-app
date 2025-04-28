@@ -3,6 +3,7 @@ import { User } from "../models/userSchema.js";
 import { sendToken } from "../utils/features.js";
 import { ErrorHandler } from "../utils/utility.js";
 import { cookieOption } from "../utils/features.js";
+import { Chat } from "../models/chatSchema.js";
 
 
 //create a new user
@@ -33,20 +34,26 @@ const login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
+    if (!username || !password)
+      return next(new ErrorHandler("Please provide both username and password", 400));
+
     const user = await User.findOne({ username }).select("+password");
 
-    if (!user)
+    if (!user) 
       return next(new ErrorHandler("Invalid Username or Password", 404));
 
     const isMatch = await compare(password, user.password);
 
-    if (!isMatch) return next(new Error("Invalid Username or Password", 404));
+    if (!isMatch) 
+      return next(new ErrorHandler("Invalid Username or Password", 404));
 
     sendToken(res, user, 200, `Welcome back ${user.name}`);
+    
   } catch (error) {
     next(error);
   }
 };
+
 
 
 //get profile 
@@ -84,14 +91,29 @@ const logOut = async (req, res, next) => {
 const searchUser = async (req, res, next) => {
   try {
 
-    const { name } = req.query;
+    const { name  } = req.query;
 
+    const myChats = await Chat.find({ groupChat: false, members: req.user });
+
+//All users from my chat means I chatted all people
+    const allUsersFromMyChats = myChats.map((chat) => chat.members).flat();
+
+    const allUsersExceptMeAndFriends = await User.find({
+      _id: { $nin: allUsersFromMyChats},
+      name: { $regex: name, $options: "i"},
+    });
+
+    const users = allUsersExceptMeAndFriends.map(({_id, name, avatar}) => ({
+      _id,
+      name,
+      avatar: avatar.url
+    }));
 
     return res
       .status(200)
       .json({
         status: true,
-        message: name,
+        users
       });
   } catch (error) {
     next(error);
