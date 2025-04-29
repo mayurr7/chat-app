@@ -17,7 +17,7 @@ const schema = new Schema(
       required: true,
     },
 
-    recevier: {
+    receiver: {
       type: Types.ObjectId,
       ref: "User",
       required: true,

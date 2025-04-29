@@ -1,8 +1,8 @@
 import express from 'express';
-import { getMyProfile, login, logOut, newUser, searchUser} from '../controllers/user.js';
+import { getMyProfile, login, logOut, newUser, searchUser, sendFriendRequest} from '../controllers/user.js';
 import { singleAvatar } from "../middlewares/multer.js"
 import { isAuthenticated } from '../middlewares/auth.js';
-import { registerValidator, validateHandler, loginValidator } from '../lib/validator.js';
+import { registerValidator, validateHandler, loginValidator, sendRequestValidator } from '../lib/validator.js';
 
 
 const app = express();
@@ -17,5 +17,6 @@ app.use(isAuthenticated);
 app.get('/me', getMyProfile);
 app.post('/logout', logOut);
 app.post('/searchuser', searchUser);
+app.put('/sendrequest', sendRequestValidator(), validateHandler, sendFriendRequest)
 
 export default app;
