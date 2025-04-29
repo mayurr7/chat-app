@@ -80,8 +80,15 @@ const renameValidator = () => [
     
 ];    
 
+
+const sendRequestValidator = () => [
+    body("userId","Please Enter User Id").notEmpty(),
+    
+]; 
+
 export {
     addMemberValidator, chatIdValidator, loginValidator,
     newGroupValidator, registerValidator, removeMemberValidator,
-    sendAttachmentsValidator, validateHandler, renameValidator
+    sendAttachmentsValidator, validateHandler, renameValidator,
+    sendRequestValidator
 };
