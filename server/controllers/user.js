@@ -6,6 +6,7 @@ import { cookieOption } from "../utils/features.js";
 import { Chat } from "../models/chatSchema.js";
 import { Request } from "../models/requestSchema.js";
 import { NEW_REQUEST, REFETCH_CHATS } from "../constants/events.js";
+import { getOtherUser } from "../lib/helper.js";
 
 //create a new user
 
@@ -151,7 +152,7 @@ const acceptFriendRequest = async (req, res, next) => {
 
     if (!request) return next(new ErrorHandler("Request not found", 400));
 
-    if (request.receiver.toString() !== req.user.toString())
+    if (request.receiver._id.toString() !== req.user.toString())
       return next(
         new ErrorHandler("You are not authorized to accept this request", 401)
       );
@@ -187,6 +188,77 @@ const acceptFriendRequest = async (req, res, next) => {
   }
 };
 
+const getAllNotification = async (req, res, next) => {
+  try {
+    const requests = await Request.find({ receiver: req.user }).populate(
+      "sender",
+      "name avatar"
+    );
+
+    const allRequests = requests.map(({ _id, sender }) => ({
+      _id,
+      sender: {
+        _id: sender._id,
+        name: sender.name,
+        avatar: sender.avatar.url,
+      },
+    }));
+
+    return res.status(200).json({
+      status: true,
+      allRequests,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getMyFriends = async (req, res, next) => {
+  try {
+    const chatId = req.query.chatId;
+
+    const chats = await Chat.find({
+      members: req.user,
+      groupChat: false,
+    }).populate("members", "name avatar");
+
+    const friends = chats.map(({ members }) => {
+      const otherUser = getOtherUser(members, req.user);
+
+      return {
+        _id: otherUser._id,
+        name: otherUser.name,
+        avatar: otherUser.avatar.url,
+      };
+    });
+
+    if (chatId) {
+      const chat = await Chat.findById(chatId);
+
+      const availableFriends = friends.filter(
+        (friend) => !chat.members.includes(friend._id)
+      );
+
+      return res.status(200).json({
+        success: true,
+        friends: availableFriends,
+      });
+    } else {
+      return res.status(200).json({
+        success: true,
+        friends,
+      });
+    }
+
+    return res.status(200).json({
+      status: true,
+      allRequests,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   login,
   newUser,
@@ -195,4 +267,6 @@ export {
   searchUser,
   sendFriendRequest,
   acceptFriendRequest,
+  getAllNotification,
+  getMyFriends,
 };
