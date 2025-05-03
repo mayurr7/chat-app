@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 
 import userRoute from './routes/user.js';
 import chatRoute from "./routes/chat.js";
+import adminRoute from "./routes/admin.js";
+
 import { createGroupsChats, createMessagesInChat, createSingleChats } from "./seeders/chatSeeders.js";
 import { createUser } from "./seeders/userSeeders.js";
 
@@ -39,6 +41,7 @@ app.get("/", (req, res) => {
 
 app.use('/user', userRoute);
 app.use('/chat', chatRoute);
+app.use('/admin',adminRoute);
 
 app.use(errorMiddleware);
 
