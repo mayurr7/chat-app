@@ -72,4 +72,86 @@ const allChats = async (req, res, next) => {
   }
 };
 
-export { allUsers, allChats };
+const allMessages = async (req, res, next) => {
+  try {
+    const messages = await Message.find({})
+      .populate("sender", "name avatar")
+      .populate("chat", "groupChat");
+
+    const transformedMessages = messages.map(
+      ({ content, attachments, _id, sender, createdAt, chat }) => ({
+        _id,
+        attachments,
+        content,
+        createdAt,
+        chat: chat._id,
+        groupChat: chat.groupChat,
+        sender: {
+          _id: sender._id,
+          name: sender.name,
+          avatar: sender.avatar.url,
+        },
+      })
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: transformedMessages,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getDashBoardStats = async (req, res, next) => {
+  try {
+    const [groupsCount, usersCount, messagesCount, totalChatsCount] =
+      await Promise.all([
+        Chat.countDocuments({ groupChat: true }),
+        User.countDocuments(),
+        Message.countDocuments(),
+        Chat.countDocuments(),
+      ]);
+
+    const today = new Date();
+
+    const last7Days = new Date();
+    last7Days.setDate(last7Days.getDate() - 7);
+
+    const last7DaysMessages = await Message.find({
+      createdAt: {
+        $gte: last7Days,
+        $lte: today,
+      },
+    }).select("createdAt");
+
+    const messages = new Array(7).fill(0);
+    const dayInMiliseconds = 1000 * 60 * 60 * 24;
+
+    last7DaysMessages.forEach((message) => {
+      const indexApprox =
+        (today.getTime() - message.createdAt.getTime()) / dayInMiliseconds;
+
+      const index = Math.floor(indexApprox);
+
+      messages[6 - index]++;
+    });
+
+    const stats = {
+      groupsCount,
+      usersCount,
+      messagesCount,
+      totalChatsCount,
+      messagesChart: messages,
+    };
+
+    return res.status(200).json({
+      success: true,
+      stats,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { allUsers, allChats, allMessages, getDashBoardStats };
