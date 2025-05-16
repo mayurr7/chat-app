@@ -97,10 +97,16 @@ const acceptRequestValidator = () => [
     
 ]; 
 
+
+const adminLoginValidator = () => [
+    body("secretKey", "Please Enter Secret Key").notEmpty(),
+];
+
 export {
     addMemberValidator, chatIdValidator, loginValidator,
     newGroupValidator, registerValidator, removeMemberValidator,
     sendAttachmentsValidator, validateHandler, renameValidator,
     sendRequestValidator,
-    acceptRequestValidator
+    acceptRequestValidator,
+    adminLoginValidator
 };
