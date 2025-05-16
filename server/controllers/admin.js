@@ -1,6 +1,63 @@
 import { User } from "../models/userSchema.js";
 import { Chat } from "../models/chatSchema.js";
 import { Message } from "../models/messageSchema.js";
+import { ErrorHandler } from "../utils/utility.js";
+import jwt from "jsonwebtoken";
+import { cookieOption } from "../utils/features.js";
+import { adminSecretKey } from "../app.js";
+
+const adminLogin = async (req, res, next) => {
+  try {
+    const { secretKey } = req.body;
+
+    const isMatched = secretKey === adminSecretKey;
+
+    if (!isMatched) return next(new ErrorHandler("Invalid Admin Key", 401));
+
+    const token = jwt.sign(secretKey, process.env.JWT_SECRET);
+
+    return res
+      .status(200)
+      .cookie("chat-admin-token", token, {
+        ...cookieOption,
+        maxAge: 1000 * 60 * 60,
+      })
+      .json({
+        success: true,
+        message: "Authenticated Successfully",
+      });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAdminData = async (req, res, next) => {
+  try {
+      return res.status(200).json({
+        admin: true
+      })
+  } catch (error) {
+    next(error);
+  }
+};
+
+const adminLogout = async (req, res, next) => {
+  try {
+   
+    return res
+      .status(200)
+      .cookie("chat-admin-token", "", {
+        ...cookieOption,
+        maxAge: 0,
+      })
+      .json({
+        success: true,
+        message: "Logout Successfully",
+      });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const allUsers = async (req, res, next) => {
   try {
@@ -154,4 +211,4 @@ const getDashBoardStats = async (req, res, next) => {
   }
 };
 
-export { allUsers, allChats, allMessages, getDashBoardStats };
+export { allUsers, allChats, allMessages, getDashBoardStats, adminLogin, adminLogout, getAdminData };
