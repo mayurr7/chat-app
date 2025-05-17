@@ -10,23 +10,31 @@ import { getOtherUser } from "../lib/helper.js";
 
 //create a new user
 
-const newUser = async (req, res) => {
-  const { name, username, password, bio } = req.body;
+const newUser = async (req, res, next) => {
+  try {
+    const { name, username, password, bio } = req.body;
 
-  const avatar = {
-    public_id: "dfdfds",
-    url: "sdbhsd",
-  };
+    const file = req.file;
 
-  const user = await User.create({
-    name,
-    username,
-    password,
-    avatar,
-    bio,
-  });
+    if (!file) return next(new ErrorHandler("Please upload avatar file", 401));
 
-  sendToken(res, user, 201, "User created");
+    const avatar = {
+      public_id: "dfdfds",
+      url: "sdbhsd",
+    };
+
+    const user = await User.create({
+      name,
+      username,
+      password,
+      avatar,
+      bio,
+    });
+
+    sendToken(res, user, 201, "User created");
+  } catch (error) {
+    next(error);
+  }
 };
 
 //Login API

@@ -1,10 +1,10 @@
-import { ErrorHandler } from "../utils/utility.js";
-import { Chat } from "../models/chatSchema.js";
-import { User } from "../models/userSchema.js";
-import { Message } from "../models/messageSchema.js";
-import { deleteFilesFromCloudinary, emitEvent } from "../utils/features.js";
 import { ALERT, NEW_ATTACHMENT, NEW_MESSAGE_ALERT, REFETCH_CHATS } from "../constants/events.js";
 import { getOtherUser } from "../lib/helper.js";
+import { Chat } from "../models/chatSchema.js";
+import { Message } from "../models/messageSchema.js";
+import { User } from "../models/userSchema.js";
+import { deleteFilesFromCloudinary, emitEvent } from "../utils/features.js";
+import { ErrorHandler } from "../utils/utility.js";
 
 const newGroupChat = async (req, res, next) => {
   try {
@@ -266,6 +266,8 @@ const sendAttachments = async(req, res, next) => {
 
       if(files.length < 1) return next(new ErrorHandler("Please provide attachmnets", 400));
 
+      if(files.length > 1) return next(new ErrorHandler("Files can't be more then 5", 400));
+
 
       //Upload file
       const attachmeents = [];
@@ -476,16 +478,8 @@ const getMessages = async(req, res, next) =>{
       }
 };
 
-export { 
-   newGroupChat,
-   getMyChat,
-   getMyGroups,
-   addMembers,
-   removeMember,
-   leaveGroup,
-   sendAttachments,
-   getChatDetails,
-   renameGroup,
-   deleteChat,
-   getMessages
+export {
+  addMembers, deleteChat, getChatDetails, getMessages, getMyChat,
+  getMyGroups, leaveGroup, newGroupChat, removeMember, renameGroup, sendAttachments
 };
+

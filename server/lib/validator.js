@@ -18,7 +18,7 @@ const registerValidator = () => [
     body("username","Please Enter username" ).notEmpty(),
     body("password","Please Enter password" ).notEmpty(),
     body("bio","Please Enter bio" ).notEmpty(),
-    check("avatar","Please upload avatar").notEmpty(),
+    
 ];
 
 
@@ -58,12 +58,6 @@ const removeMemberValidator = () => [
 
 const sendAttachmentsValidator = () => [
     body("chatId","Please Enter chat ID" ).notEmpty(),
-    check("files")
-    .notEmpty()
-    .withMessage("Please upload attachments")
-    .isArray({min: 1,max : 5})
-    .withMessage("Attachments must be between 1 to 5"),
-    
 ];
 
 
